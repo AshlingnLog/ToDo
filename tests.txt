@@ -1,0 +1,57 @@
+test strategy, test styles of the elements in DOM with selenium tests, one test for each step in the instructions.
+
+from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(options = options)
+
+try:
+driver.get('{{localhost}}/index.html')
+elm = WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.CLASS_NAME, "planner-item"))
+)
+print(elm)
+color = elm.value_of_css_property('background-color')
+print(color)
+assert('rgba(245, 245, 220, 1)' in color)
+ 
+finally:
+driver.close()
+
+prop = elm.value_of_css_property('border')
+print(prop)
+assert('1px solid rgba(355, 355, 355, 1)' in prop)
+
+// hover test
+
+
+from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+ 
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(options = options)
+
+try:
+driver.get('{{localhost}}/index.html')
+elm = WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.CLASS_NAME, "planner-item"))
+)
+hover = ActionChains(driver).move_to_element(elm)
+hover.perform()
+print(elm)
+prop = elm.value_of_css_property('cursor')
+print(prop)
+assert('pointer' in prop)
+ 
+finally:
+driver.close()
